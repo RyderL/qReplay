@@ -15,8 +15,8 @@ void Replay::parse(QString filename, const Config& config) {
         return;
     }
 
-    QTextStream in(&file);
-    QString text = in.readAll();
+    QByteArray bytes = file.readAll();
+    QString text = QTextCodec::codecForMib(106)->toUnicode(bytes);
     file.close();
 
     int beg = text.indexOf("{\"game");
@@ -46,8 +46,8 @@ void Replay::parse(QString filename, const Config& config) {
             Deck d(player.value("PlayerDeckContent").toString(), config, game["Version"]);
 
             d.player_level = player.value("PlayerLevel").toString();
-            d.player_name = player.value("PlayerName").toString().toLocal8Bit();
-            d.player_deckname = player.value("PlayerDeckName").toString().toLocal8Bit();
+            d.player_name = player.value("PlayerName").toString().toUtf8();
+            d.player_deckname = player.value("PlayerDeckName").toString().toUtf8();
             d.player_id = p;
 
             qDebug() << ">" << d.player_name << d.player_deckname;
