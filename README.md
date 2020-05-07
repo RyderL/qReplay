@@ -13,4 +13,4 @@ Requirements
 Downloads
 -----
 
-https://github.com/ascii78/qReplay/releases
+https://github.com/RyderL/qReplay/releases
